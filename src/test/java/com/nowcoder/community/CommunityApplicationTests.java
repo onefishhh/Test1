@@ -1,6 +1,5 @@
 package com.nowcoder.community;
 
-import com.nimbusds.oauth2.sdk.util.date.SimpleDate;
 import com.nowcoder.community.dao.AlphaDao;
 import com.nowcoder.community.service.AlphaService;
 import org.junit.Test;
