@@ -12,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 @Controller
 @RequestMapping("/alpha")
@@ -99,7 +98,7 @@ public class AlphaController {
         return mav;
     }
 
-    @RequestMapping(path = "/teacher", method = RequestMethod.GET)
+    @RequestMapping(path = "/school", method = RequestMethod.GET)
     public String getSchool(Model model){
         model.addAttribute("name","北京大学");
         model.addAttribute("age","80");
@@ -118,5 +117,31 @@ public class AlphaController {
         emp.put("age",23);
         emp.put("salary", 8000.00);
         return emp;
+    }
+
+    @RequestMapping(path = "/emps", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Map<String, Object>> getEmps(){
+        List<Map<String, Object>> list = new ArrayList<>();
+
+        Map<String,Object> emp = new HashMap<>();
+        emp.put("name","张三");
+        emp.put("age",23);
+        emp.put("salary", 8000.00);
+        list.add(emp);
+
+        emp = new HashMap<>();
+        emp.put("name","李四");
+        emp.put("age",24);
+        emp.put("salary", 9000.00);
+        list.add(emp);
+
+        emp = new HashMap<>();
+        emp.put("name","王五");
+        emp.put("age",25);
+        emp.put("salary", 10000.00);
+        list.add(emp);
+
+        return list;
     }
 }
