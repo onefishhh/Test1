@@ -126,10 +126,10 @@
 							<h6 class="mt-0 mb-3">
 								<a href="#" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
 								<span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
-								<span class="badge badge-secondary bg-danger" th:if="{map.post.status==1">精华</span>
+								<span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">精华</span>
 							</h6>
 							<div class="text-muted font-size-12">
-								<u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#date.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
+								<u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 								<ul class="d-inline float-right">
 									<li class="d-inline ml-2">赞 11</li>
 									<li class="d-inline ml-2">|</li>
@@ -141,17 +141,22 @@
 				</ul>
 
 				<!-- 分页 -->
-				<nav class="mt-5">
+				<nav class="mt-5" th:if="${page.rows>0}">
 					<ul class="pagination justify-content-center">
-						<li class="page-item"><a class="page-link" href="#">首页</a></li>
-						<li class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
-						<li class="page-item active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">4</a></li>
-						<li class="page-item"><a class="page-link" href="#">5</a></li>
-						<li class="page-item"><a class="page-link" href="#">下一页</a></li>
-						<li class="page-item"><a class="page-link" href="#">末页</a></li>
+						<li class="page-item">
+							<a class="page-link" th:href="@{${page.path}(currentPageNo=1, limit = 5)}">首页</a>
+						</li>
+						<li class="|page-item ${page.currentPageNo ==1? 'disabled':''}|">
+							<a class="page-link" th:href="@{${page.path}(currentPageNo = ${page.currentPageNo-1})}">上一页</a>
+						</li>
+						<li th: class="|page-item ${i == page.currentPageNo? 'active':'' }|" th:each = "i:${#numbers.sequence(page.from,page.to)}">
+							<a class="page-link" href="#" th:text="${i}">1</a>
+						</li>
+
+						<li class="|page-item ${page.currentPageNo == page.total? 'disabled':''}|">
+							<a class="page-link" th:href="@{${page.path}(currentPageNo = ${page.currentPageNo+1})}">下一页</a>
+						</li>
+						<li class="page-item"><a class="page-link" th:href="@{$page.path}(currentPageNo = ${page.total})">末页</a></li>
 					</ul>
 				</nav>
 			</div>
