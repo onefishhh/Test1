@@ -49,10 +49,12 @@ public class Page {
         };
 
         public int getTotal(){
-            if (rows%limit == 0){
-                return rows/limit;
+            if (rows % limit == 0) {
+                return rows / limit;
             }
-            else {return rows/limit+1;}
+            else {
+                return rows / limit + 1;
+            }
         }
 
         public int getFrom(){
